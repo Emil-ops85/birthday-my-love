@@ -111,6 +111,7 @@ body {
 }
 
 /* ---------- Параллакс слайдов ---------- */
+/* Покачивание котика на обёртке (НЕ на <img>), чтобы GIF не замораживался на iPhone */
 .cat-wrap {
   display: block;
   transform: translateX(-70px);
@@ -120,6 +121,11 @@ body {
 .slide.active .cat-wrap {
   transform: translateX(0);
   opacity: 1;
+  animation: bob 3.5s ease-in-out 0.9s infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(-2deg); }
+  50%      { transform: translateX(0) translateY(-10px) rotate(2deg); }
 }
 .slide .content {
   transform: translateX(45px);
@@ -215,6 +221,9 @@ body {
 }
 
 /* ---------- Кошечки ---------- */
+/* ВАЖНО для iPhone: на самом <img> НЕ должно быть CSS transform-анимации,
+   иначе iOS Safari замораживает GIF на первом кадре.
+   Покачивание вынесено на обёртку .cat-wrap ниже. */
 .cat {
   width: clamp(130px, 22vw, 190px);
   height: clamp(130px, 22vw, 190px);
@@ -225,16 +234,12 @@ body {
   box-shadow: 0 14px 34px rgba(214, 150, 190, 0.4),
               0 0 20px rgba(245,140,196,0.35),
               0 0 40px rgba(245,140,196,0.15);
-  animation: bob 3.5s ease-in-out infinite, catGlow 3s ease-in-out infinite;
+  display: block;
+  animation: catGlow 3s ease-in-out infinite;
 }
 @keyframes catGlow {
   0%, 100% { box-shadow: 0 14px 34px rgba(214,150,190,0.4), 0 0 18px rgba(245,140,196,0.3), 0 0 36px rgba(245,140,196,0.12); }
   50%      { box-shadow: 0 14px 34px rgba(214,150,190,0.5), 0 0 30px rgba(245,140,196,0.5), 0 0 60px rgba(245,140,196,0.25); }
-}
-
-@keyframes bob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50%      { transform: translateY(-10px) rotate(2deg); }
 }
 
 /* ---------- Плавающий эмодзи ---------- */
