@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#fce7f3">
+  <title>С Днём Рождения, любимая! 💛</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Анимированный фон -->
+  <div id="bg"></div>
+  <!-- Плавающие сердечки (только справа) -->
+  <div id="floating-hearts"></div>
+  <!-- Мерцающие звёздочки -->
+  <div id="sparkles"></div>
+  <!-- Плавающие блёстки/конфетти -->
+  <div id="glitters"></div>
+  <!-- Проплывающие котики на фоне -->
+  <div id="bg-cats"></div>
+
+  <!-- Страницы-слайды -->
+  <section class="slide active" data-bg="#fce7f3">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat1.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Солнышко,<br>в этот день ты появилась на свет 🌅</h1>
+      <p class="subtitle">И мир стал чуточку светлее</p>
+      <button class="btn" data-next="1">Начать путешествие ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#fef3c7">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat2.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Ты очень милая и умная 🧠</h1>
+      <p class="subtitle">Твой ум и красота — идеальное сочетание</p>
+      <button class="btn" data-next="2">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#ecfccb">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat3.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Никогда не сдавайся<br>и всегда иди вперёд ✨</h1>
+      <p class="subtitle">У тебя всё получится — я в тебя верю</p>
+      <button class="btn" data-next="3">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#ffe4e6">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat4.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Твоя улыбка<br>согревает моё сердце</h1>
+      <p class="subtitle">Каждый день с тобой — подарок</p>
+      <button class="btn" data-next="4">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#ede9fe">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat5.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">С тобой каждый день<br>становится праздником</h1>
+      <p class="subtitle">Даже самые обычные моменты — волшебные</p>
+      <button class="btn" data-next="5">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#dbeafe">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat6.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Ты — моё счастье<br>и моя радость</h1>
+      <p class="subtitle">С тобой моё сердце бьётся чаще</p>
+      <button class="btn" data-next="6">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#fce7f3">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat7.gif" class="cat" alt="милый котёнок"></div>
+      <h1 class="title">Мы вместе —<br>и это самое лучшее 🥰</h1>
+      <p class="subtitle">Спасибо, что ты есть в моей жизни</p>
+      <button class="btn" data-next="7">Дальше ➜</button>
+    </div>
+  </section>
+
+  <section class="slide" data-bg="#fdf2f8">
+    <div class="content">
+      <div class="cat-wrap"><img src="img/cat8.gif" class="cat" alt="поздравительный котёнок"></div>
+      <h1 class="title">С Днём Рождения,<br><span class="name">Маша</span>! 🎂</h1>
+      <p class="subtitle">Ты — самая лучшая часть моей жизни</p>
+      <button class="btn" data-next="-1">Жми! 💌</button>
+    </div>
+  </section>
+
+  <!-- Финальный сюрприз -->
+  <div id="final" class="hidden">
+    <div class="confetti-container"></div>
+    <div class="final-card">
+      <div class="card-heart">💖</div>
+      <h1>С Днём Рождения! 🎂🎉</h1>
+      <p id="typewriter" class="typewriter"></p>
+      <p class="sign">Люблю тебя бесконечно 💛</p>
+      <button class="btn" data-restart>Начать заново ↺</button>
+    </div>
+  </div>
+
+  <!-- Фоновая музыка -->
+  <audio id="bg-music" loop preload="auto" autoplay>
+    <source src="audio/precious-memories.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" title="Включить / выключить музыку">🎵</button>
+  <button id="heart-button" title="Отправить любовь 💗">💗</button>
+  <div id="heart-explode"></div>
+
+  <!-- Прогресс -->
+  <div class="progress" id="progress"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
