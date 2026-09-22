@@ -110,30 +110,20 @@ body {
   100% { transform: translate(30px, -120vh) rotate(8deg); }
 }
 
-/* ---------- Параллакс слайдов ---------- */
-/* Покачивание котика на обёртке (НЕ на <img>), чтобы GIF не замораживался на iPhone */
+/* ---------- Выравнивание котика ---------- */
+/* ВАЖНО для iPhone: на iOS Safari CSS-анимация/transition (transform/opacity)
+   на любом ПРЕДКЕ <img> замораживает GIF на первом кадре. Поэтому котик и его
+   обёртка НЕ анимируются вообще. Жизнь даёт сам GIF + пульсирующее свечение
+   на псевдоэлементе ::before (он не предок картинки — анимировать безопасно). */
 .cat-wrap {
   display: block;
+  width: fit-content;
+  margin: 0 auto;
   position: relative;
-  transform: translateX(-70px);
-  opacity: 0;
-  transition: transform 0.9s ease, opacity 0.9s ease;
-}
-.slide.active .cat-wrap {
-  transform: translateX(0);
-  opacity: 1;
-  animation: bob 3.5s ease-in-out 0.9s infinite;
 }
 @keyframes bob {
   0%, 100% { transform: translateX(0) translateY(0) rotate(-2deg); }
   50%      { transform: translateX(0) translateY(-10px) rotate(2deg); }
-}
-.slide .content {
-  transform: translateX(45px);
-  transition: transform 0.9s ease;
-}
-.slide.active .content {
-  transform: translateX(0);
 }
 
 /* ---------- Слайды ---------- */
@@ -147,15 +137,12 @@ body {
   padding: 40px;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
   z-index: 5;
 }
 
 .slide.active {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
 }
 
 .content {
@@ -236,6 +223,7 @@ body {
               0 0 20px rgba(245,140,196,0.35),
               0 0 40px rgba(245,140,196,0.15);
   display: block;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
 }
@@ -596,7 +584,5 @@ body {
   .typewriter { min-height: 9em; }
   .card-heart { font-size: 2.8rem; }
 
-  /* Параллакс на мобильном мягче */
-  .cat-wrap { transform: translateX(-40px); }
-  .slide .content { transform: translateX(25px); }
+  /* Параллакс убран — котик стоит по центру */
 }
