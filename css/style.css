@@ -209,44 +209,31 @@ body {
 }
 
 /* ---------- Кошечки ---------- */
-/* ВАЖНО для iPhone: на самом <img> НЕ должно быть CSS transform-анимации,
-   иначе iOS Safari замораживает GIF на первом кадре.
-   Покачивание вынесено на обёртку .cat-wrap ниже. */
-.cat {
+/* ВАЖНО для iPhone (iOS Safari): на самом <img class="cat"> НЕ должно быть
+   НИЧЕГО, что создаёт отдельный композитный слой — ни border-radius, ни border,
+   ни box-shadow, ни filter, ни transform/opacity. Иначе Safari застывает на
+   первом кадре GIF. Поэтому картинка внутри абсолютно «голая»: только размер
+   и object-fit. Вся круглая рамка, тень и пульсирующее свечение живут на
+   обёртке .cat-wrap (это обычный <div> — его анимировать безопасно). */
+.cat-wrap {
+  position: relative;
   width: clamp(130px, 22vw, 190px);
   height: clamp(130px, 22vw, 190px);
-  object-fit: cover;
+  margin: 0 auto 30px;
   border-radius: 50%;
-  margin-bottom: 30px;
-  border: 6px solid rgba(255,255,255,0.9);
-  box-shadow: 0 14px 34px rgba(214, 150, 190, 0.4),
-              0 0 20px rgba(245,140,196,0.35),
-              0 0 40px rgba(245,140,196,0.15);
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-/* Свечение пульсирует на псевдоэлементе обёртки, а НЕ на самом <img>.
-   ВАЖНО для iPhone: на iOS Safari любая CSS-анимация/transition на <img>
-   замораживает GIF на первом кадре. Псевдоэлемент можно анимировать безопасно. */
-.cat-wrap::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  width: calc(100% + 24px);
-  height: calc(100% + 24px);
-  border-radius: 50%;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(245,140,196,0.5) 0%, rgba(245,140,196,0) 70%);
+  overflow: hidden;
   animation: catGlow 3s ease-in-out infinite;
 }
 @keyframes catGlow {
-  0%, 100% { opacity: 0.55; transform: scale(0.9); }
-  50%      { opacity: 1; transform: scale(1.08); }
+  0%, 100% { box-shadow: 0 0 0 6px rgba(255,255,255,0.9), 0 14px 34px rgba(214,150,190,0.4), 0 0 18px rgba(245,140,196,0.3); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0.9), 0 14px 34px rgba(214,150,190,0.55), 0 0 30px rgba(245,140,196,0.5), 0 0 60px rgba(245,140,196,0.25); }
+}
+
+.cat {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ---------- Плавающий эмодзи ---------- */
@@ -527,12 +514,11 @@ body {
 
   .slide { padding: 20px; }
 
-  /* Меньше котики */
-  .cat {
+  /* Меньше котики — размеры задаём на обёртке, <img> растягивается внутри */
+  .cat-wrap {
     width: clamp(110px, 30vw, 150px);
     height: clamp(110px, 30vw, 150px);
     margin-bottom: 20px;
-    border-width: 4px;
   }
 
   .content { max-width: 100%; }
