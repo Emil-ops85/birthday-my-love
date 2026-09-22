@@ -114,6 +114,7 @@ body {
 /* Покачивание котика на обёртке (НЕ на <img>), чтобы GIF не замораживался на iPhone */
 .cat-wrap {
   display: block;
+  position: relative;
   transform: translateX(-70px);
   opacity: 0;
   transition: transform 0.9s ease, opacity 0.9s ease;
@@ -235,11 +236,29 @@ body {
               0 0 20px rgba(245,140,196,0.35),
               0 0 40px rgba(245,140,196,0.15);
   display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Свечение пульсирует на псевдоэлементе обёртки, а НЕ на самом <img>.
+   ВАЖНО для iPhone: на iOS Safari любая CSS-анимация/transition на <img>
+   замораживает GIF на первом кадре. Псевдоэлемент можно анимировать безопасно. */
+.cat-wrap::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(245,140,196,0.5) 0%, rgba(245,140,196,0) 70%);
   animation: catGlow 3s ease-in-out infinite;
 }
 @keyframes catGlow {
-  0%, 100% { box-shadow: 0 14px 34px rgba(214,150,190,0.4), 0 0 18px rgba(245,140,196,0.3), 0 0 36px rgba(245,140,196,0.12); }
-  50%      { box-shadow: 0 14px 34px rgba(214,150,190,0.5), 0 0 30px rgba(245,140,196,0.5), 0 0 60px rgba(245,140,196,0.25); }
+  0%, 100% { opacity: 0.55; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.08); }
 }
 
 /* ---------- Плавающий эмодзи ---------- */
