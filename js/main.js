@@ -34,12 +34,6 @@ function goTo(index) {
   slides[current].classList.add('active');
   dotEls[current].classList.add('active');
 
-  // Запускаем видео-котика на активном слайде с самого начала
-  const video = slides[current].querySelector('video.cat');
-  if (video) {
-    video.play().catch(() => {});
-  }
-
   // Печатаем заголовок по буквам
   typeTitle(slides[current]);
   playClick();
